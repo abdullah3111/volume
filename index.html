@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #272731;
+            min-height: 100vh;
+        }
+
+        .box {
+            background: #3e3f53;
+            width: 90%;
+            padding: 50px;
+            border-radius: 15px;
+         
+        }
+        .padds{
+            width: 79%;
+                padding-left: 10%;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+        }
+
+        svg {
+            width: 100%;
+            margin: auto;
+            display: block;
+            z-index: 2;
+            position: relative;
+        }
+
+        path {
+            stroke-linecap: round;
+            stroke-width: 8;
+        }
+
+        path.grey {
+            stroke: #1f2130;
+
+        }
+
+        path.purple {
+            stroke: #1f2130;
+            stroke-dasharray: 10 198;
+            stroke-dashoffset: 198;
+            animation: dash 5s linear forwards;
+        }
+
+        path.white {
+            stroke: #ec9427;
+            stroke-dasharray: 208px;
+            stroke-dashoffset: 77;
+            stroke-width: 3.5px;
+            animation: dash 5s linear forwards;
+
+        }
+
+        .volume-wrapper {
+            position: relative;
+            width: 200px;
+        }
+
+        .volume-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 10%;
+            right: -6%;
+            background: #3e3f53;
+            /* background-color: red; */
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            z-index: 1;
+        }
+
+        .volume-wrapper::before {
+            content: "";
+            position: absolute;
+            bottom: -15%;
+            left: 28%;
+            background: #3e3f53;
+            /* background-color: red; */
+            width: 110px;
+            height: 40px;
+            z-index: 2;
+        }
+
+        .volume-picker {
+            display: flex;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(0deg, #1d1d29, #414352);
+            position: absolute;
+            top: 28%;
+            left: 81%;
+            transform: .3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: -1px 4px 9px 4px #1d1d2978;
+            z-index: 3;
+        }
+
+        .volume-picker .l1 {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(170deg, #1d1d29, #414352);
+        }
+
+        .volume-picker .l2 {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #ec9427;
+        }
+
+        .volume-picker:hover {
+            transform: scale(1.2);
+        }
+
+        .ring {
+            position: absolute;
+            top: 27%;
+            left: 24%;
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: linear-gradient(170deg, #1d1d29, #525568);
+            z-index: 3;
+        }
+
+        .ring::after {
+            content: "";
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            border-radius: 50%;
+            background-color: #3e3f53;
+            width: calc(100% - 2px);
+            height: calc(100% - 2px);
+        }
+
+        .controller {
+            position: absolute;
+            top: 38%;
+            left: 35%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(170deg, #2c2e3c, #494b56);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #181922;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 1px 9px 15px -1px #000000ad;
+            z-index: 4;
+        }
+
+        .line {
+            position: absolute;
+            top: 60%;
+            left: 2%;
+            display: flex;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.557);
+            width: 215px;
+        }
+        .bord{
+            height: 230px;
+            width: 240px;
+            /* background-color: red; */
+            position: absolute;
+            border-radius: 50%;
+            left: -5%;
+            display: flex;
+            /* top: 20%; */
+            border-left: 0.5px solid #2b2c3e;
+            border-right: 1px solid #2b2c3e;
+        }
+        .bord2{
+            height: 249px;
+            width: 272px;
+            display: flex;
+            /* background-color: red; */
+            position: absolute;
+            border-radius: 50%;
+            left: -11%;
+            border-left: 0.5px solid #2b2c3e;
+            border-top: 1px solid #2b2c3e;
+            z-index: 999;
+            top: -4%;
+        }
+     
+            .box1{
+             width: 243px;
+             height: 50px;
+             position: absolute;
+             background: #3e3f53;
+        }
+        .box2{
+             width: 55px;
+             right: 0%;
+             bottom: 80%;
+             height: 50px;
+             border-radius: 50%;
+             position: absolute;
+             background: #3e3f53;
+        }
+        .box3{
+             width: 55px;
+             right: -7%;
+             bottom: 70%;
+             height: 50px;
+             border-radius: 50%;
+             position: absolute;
+             background: #3e3f53;
+        }
+        
+            .box4{
+             width: 55px;
+             right: -12%;
+             top: 24%;
+
+             bottom: 60%;
+             height: 61px;
+             border-radius: 50%;
+             position: absolute;
+             background: #3e3f53;
+        }
+        .bord3{
+            height: 230px;
+            width: 240px;
+            /* background-color: red; */
+            position: absolute;
+            border-radius: 50%;
+            left: -6%;
+            display: flex;
+            /* top: 20%; */
+            border-left: 0.5px solid #2b2c3e;
+            border-right: 1px solid #2b2c3e;
+        }
+        .box5{
+             width: 243px;
+             height: 50px;
+             position: absolute;
+             background: #3e3f53;
+        }
+        .gad{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            align-items: center;
+            grid-gap: 14px;
+            width: 89%;
+            padding-left: 13%;
+        }
+        .but{
+            height: 22px;
+            width: 62px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            background:linear-gradient(1deg, #252632, #353c50);
+            box-shadow: 1px 19px 18px -5px #000000ad;
+            color: #a0a4b2;
+            padding: 19px;
+            border-radius: 40px;
+        }
+        .but2{
+            height: 22px;
+            width: 62px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            background:#1b1f32;
+            box-shadow: inset 1px 19px 18px -5px #000000ad;
+            color: #a37b48;
+            border: 2px solid #1b1f32;
+            outline: 2px solid #1b1f32;
+            padding: 19px;
+            border-radius: 40px;
+        }
+        .fons{
+            font-family: 'Dancing Script', cursive;
+            font-size: 57px;
+            color: #1a1b2d;
+        }
+        .div-fon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+ .container {
+	 margin-top: 55px;
+	 width: 200px;
+	 /* text-align: center; */
+     padding: 4px;
+     border-top: 2px dotted white;
+     border-bottom: 2px dotted white;
+     border-image-width: 40px;
+     padding-left: 0;
+     padding-right: 0;
+}
+
+ .progress2 {
+    height: 10px;
+    position: relative;
+	 padding: 6px;
+     z-index: 2;
+	 border-radius: 30px;
+	 background: #1f2130;
+	 box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+}
+/* .lines{
+    height: 47px;
+    z-index: 1;
+    top: 74%;
+    background: white;
+    width: 2px;
+    position: absolute;
+} */
+ .progress-bar2 {
+    z-index: 2;
+    position: relative;
+	 height: 18px;
+	 border-radius: 30px;
+	 background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+	 transition: 0.4s linear;
+	 transition-property: width, background-color;
+}
+ .progress-moved .progress-bar2 {
+    position: absolute;
+    top: 18%;
+    height: 6px;
+    z-index: 2;
+	 width: 30%;
+	 background-color: #ec9427;
+	 animation: progressAnimation 6s;
+}
+.volume-picker1 {
+            display: flex;
+            width: 20px;
+            height: 30px;
+            border-radius: 27%;
+            background: linear-gradient(0deg, #1d1d29, #414352);
+            position: absolute;
+            bottom: -204%;
+            left: 81%;
+            transform: .3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: -1px 4px 9px 4px #1d1d2978;
+            z-index: 3;
+        }
+
+        .volume-picker1 .l3 {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            border-radius: 27%;
+            background: linear-gradient(170deg, #1d1d29, #414352);
+        }
+
+        .volume-picker1 .l4 {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: #ec9427;
+        }
+
+ @keyframes colorAnimation {
+	 0% {
+		 background-image: linear-gradient(to right, #355070, #6d597a, #b56576, #e56b6f, #eaac8b, #ff2d55);
+	}
+	 20% {
+		 background-image: linear-gradient(to right, #6d597a, #b56576, #e56b6f, #eaac8b, #ff2d55, #355070);
+	}
+	 40% {
+		 background-image: linear-gradient(to right, #b56576, #e56b6f, #eaac8b, #ff2d55, #355070, #6d597a);
+	}
+	 60% {
+		 background-image: linear-gradient(to right, #e56b6f, #eaac8b, #ff2d55, #355070, #6d597a, #b56576);
+	}
+	 100% {
+		 background-image: linear-gradient(to right, #eaac8b, #ff2d55, #355070, #6d597a, #b56576, #e56b6f);
+	}
+}
+.boxing{
+    position: absolute;
+    height: 40px;
+    height: 300px;
+    background: red;
+}
+.circle{
+    position: absolute;
+    color: white;
+    font-weight: 500;
+    top: -53%;
+    left: -9%;
+}
+.ciroth{
+    position: absolute;
+    color: white;
+    font-weight: 500;
+    top: -53%;
+    right: -15%;
+}
+.gain{
+    position: absolute;
+    color: white;
+    font-weight: 500;
+    top: -292%;
+    left: 38%;
+}
+
+
+ 
+    </style>
+</head>
+
+<body>
+    <div class="box">
+       <div class="top">
+        <div></div>
+        <div></div>
+       <div></div>
+  
+    
+    <div class="padds">
+        <div>
+          
+            
+            <div class="volume-wrapper">
+                <div class="bord">
+                    <div class="box1"></div>
+                </div>
+                <div class="bord2">
+                    <div class="box2"></div>
+                    <div class="box3"></div>
+                    <div class="box4"></div>
+                </div>
+                <span class="line" style="transform: rotate(0deg);"></span>
+                <span class="line" style="transform: rotate(10deg);"></span>
+                <span class="line" style="transform: rotate(20deg);"></span>
+                <span class="line" style="transform: rotate(30deg);"></span>
+                <span class="line" style="transform: rotate(40deg);"></span>
+                <span class="line" style="transform: rotate(50deg);"></span>
+                <span class="line" style="transform: rotate(60deg);"></span>
+                <span class="line" style="transform: rotate(70deg);"></span>
+                <span class="line" style="transform: rotate(80deg);"></span>
+                <span class="line" style="transform: rotate(90deg);"></span>
+                <span class="line" style="transform: rotate(100deg);"></span>
+                <span class="line" style="transform: rotate(110deg);"></span>
+                <span class="line" style="transform: rotate(120deg);"></span>
+                <span class="line" style="transform: rotate(130deg);"></span>
+                <span class="line" style="transform: rotate(140deg);"></span>
+                <span class="line" style="transform: rotate(150deg);"></span>
+                <span class="line" style="transform: rotate(160deg);"></span>
+                <span class="line" style="transform: rotate(170deg);"></span>
+                <div class="volume-picker">
+                    <span class="l1"></span>
+                    <span class="l2"></span>
+                </div>
+                <div class="ring"></div>
+                <div class="controller">
+                    LEFT
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100">
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#56c4fb" />
+                        <stop offset="100%" stop-color="#0baeff" />
+                    </linearGradient>
+                    <path class="grey" d="M30,90 A40,40 0 1,1 80,90" style="fill:none;" />
+                    <path id="purple" class="purple" d="M30,90 A40,40 0 1,1 80,90" style="fill:none; transition: .3s;" />
+                    <path id="white" class="white" d="M30,90 A40,40 0 1,1 80,90" style="fill:none; transition: .3s;" />
+                </svg>
+            </div>
+        </div>
+        <div style="width: 100%; z-index: 999;margin-left: 39px; margin-right: 39px;">
+            <div class="gad">
+                <div class="but">LINK</div>
+                <div style="width: 130px !important;" class="but">PING PONG</div>
+                <div class="but2">DUCK</div>
+            </div>
+            <div class="div-fon">
+                <h1 class="fons" >Rectrograde</h1>
+            </div>
+            <div>
+               
+                
+                  <div class="container">
+                
+                    
+         
+                    <div class="progress2 progress-moved">
+                        <div class="gain">GAIN</div>
+                        <div class="circle">O</div>
+                        <div class="ciroth">100</div>
+                      <div class="progress-bar2">
+                        <div class="volume-picker1">
+                            <span class="l3"></span>
+                         
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                  </div>
+                  <div class="container">
+                    <div class="progress2 progress-moved">
+                        <div class="gain">MIX</div>
+                        <div class="circle">O</div>
+                        <div class="ciroth">100</div>
+                      <div style="width: 80% !important;" class="progress-bar2">
+                        <div style="left: 91% !important;" class="volume-picker1">
+                            <span class="l3"></span>
+                         
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                 
+         
+        </div>
+            </div>
+        <div>
+            
+            <div style="left: 30% !important;" class="volume-wrapper">
+                <div class="bord3">
+                    <div class="box5"></div>
+                </div>
+                <span class="line" style="transform: rotate(0deg);"></span>
+                <span class="line" style="transform: rotate(10deg);"></span>
+                <span class="line" style="transform: rotate(20deg);"></span>
+                <span class="line" style="transform: rotate(30deg);"></span>
+                <span class="line" style="transform: rotate(40deg);"></span>
+                <span class="line" style="transform: rotate(50deg);"></span>
+                <span class="line" style="transform: rotate(60deg);"></span>
+                <span class="line" style="transform: rotate(70deg);"></span>
+                <span class="line" style="transform: rotate(80deg);"></span>
+                <span class="line" style="transform: rotate(90deg);"></span>
+                <span class="line" style="transform: rotate(100deg);"></span>
+                <span class="line" style="transform: rotate(110deg);"></span>
+                <span class="line" style="transform: rotate(120deg);"></span>
+                <span class="line" style="transform: rotate(130deg);"></span>
+                <span class="line" style="transform: rotate(140deg);"></span>
+                <span class="line" style="transform: rotate(150deg);"></span>
+                <span class="line" style="transform: rotate(160deg);"></span>
+                <span class="line" style="transform: rotate(170deg);"></span>
+                <div class="volume-picker">
+                    <span class="l1"></span>
+                    <span class="l2"></span>
+                </div>
+                <div class="ring"></div>
+                <div class="controller">
+                    RIGHT
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 100 100">
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#56c4fb" />
+                        <stop offset="100%" stop-color="#0baeff" />
+                    </linearGradient>
+                    <path class="grey" d="M30,90 A40,40 0 1,1 80,90" style="fill:none;" />
+                    <path id="purple" class="purple" d="M30,90 A40,40 0 1,1 80,90" style="fill:none; transition: .3s;" />
+                    <path id="white" class="white" d="M30,90 A40,40 0 1,1 80,90" style="fill:none; transition: .3s;" />
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+</html>
